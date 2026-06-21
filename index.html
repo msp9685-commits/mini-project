@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+    <p><b>Welcome to Expense Tracker</b></p>
+    <p><i>This site help you add your new expense and track them</i></p>
+    <form action="/" method="POST">
+        <label for="expense">Add New Expense</label>
+        <input type="text" id="expense" name="expense">
+        <label for="describe">Describe Expense</label>
+        <input type="text" id="describe" name="describe">
+        <button type="submit">+</button>
+    </form>
+
+</body>
+
+</html>
+<ul>
+    {% for expense in expenses %}
+    <li>
+        ₹{{expense.amount}}-{{expense.description}}
+        <form action="/delete" method="POST">
+            <input type="hidden" name="index" value="{{loop.index0}}">
+            <button type="submit">Delete</button>
+        </form>
+        <form action="/edit" method="POST">
+            <input type="hidden" name="index" value="{{loop.index0}}">
+            <input type="text" name="expense" value = "{{expense.amount}}">
+            <input type="text" name="describe" value = "{{expense.description}}">
+            <button type="submit">Edit</button>
+        </form>
+    </li>
+    {% endfor %}
+    <h2>Total expense :{{total}}</h2>
+
+</ul>
