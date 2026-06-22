@@ -4,39 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Tracker</title>
+    <title>Weather App</title>
 </head>
 
 <body>
-    <p><b>Welcome to Expense Tracker</b></p>
-    <p><i>This site help you add your new expense and track them</i></p>
+    <p><b>Welcome to Weather App , let look at today's Weather</b></p>
     <form action="/" method="POST">
-        <label for="expense">Add New Expense</label>
-        <input type="text" id="expense" name="expense">
-        <label for="describe">Describe Expense</label>
-        <input type="text" id="describe" name="describe">
-        <button type="submit">+</button>
+        <label for="city">Enter Your's City Name</label>
+        <input type="text" id="city" name="city">
+        <button type="submit">Fetch</button>
     </form>
-
 </body>
 
 </html>
-<ul>
-    {% for expense in expenses %}
-    <li>
-        ₹{{expense.amount}}-{{expense.description}}
-        <form action="/delete" method="POST">
-            <input type="hidden" name="index" value="{{loop.index0}}">
-            <button type="submit">Delete</button>
-        </form>
-        <form action="/edit" method="POST">
-            <input type="hidden" name="index" value="{{loop.index0}}">
-            <input type="text" name="expense" value = "{{expense.amount}}">
-            <input type="text" name="describe" value = "{{expense.description}}">
-            <button type="submit">Edit</button>
-        </form>
-    </li>
-    {% endfor %}
-    <h2>Total expense :{{total}}</h2>
 
-</ul>
+
+<!-- {% if getweather %}
+<p>Temperature : {{ getweather.temperature }}°C</p>
+<p>Humidity : {{ getweather.humidity }}%</p>
+<p>Pressure : {{ getweather.pressure }}hpa</p>
+<p>Description : {{ getweather.description }}</p>
+<p>Feel like Temperature: {{getweather.feels_like}}°C</p>
+<p>Wind Speed: {{getweather.windspeed}}m/s</p>
+{% endif %} -->
+
+{% if getweather.error %}
+{{getweather.error}}
+{% else %}
+<p><h3>Your Current city is {{city}}, {{getweather.country}}</h3></p>
+<p>Temperature : {{ getweather.temperature }}°C</p>
+<p>Humidity : {{ getweather.humidity }}%</p>
+<p>Pressure : {{ getweather.pressure }}hpa</p>
+<p>Description : {{ getweather.description }}</p>
+<img src="{{getweather.icon}}" alt="description image">
+<p>Feel like Temperature: {{getweather.feels_like}}°C</p>
+<p>Wind Speed: {{getweather.windspeed}}m/s</p>
+{% endif %}
